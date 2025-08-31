@@ -6,11 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 
-import javax.swing.text.Segment;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_segment")
+@Table(name = "user_segments")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +20,11 @@ public class UserSegment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "segment_id")
     private Segment segment;
 
