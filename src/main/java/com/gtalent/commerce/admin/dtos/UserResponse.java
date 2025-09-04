@@ -1,97 +1,51 @@
-package com.gtalent.commerce.admin.models;
+package com.gtalent.commerce.admin.dtos;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import com.gtalent.commerce.admin.models.User;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "users")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserResponse {
+
     private int id;
-
-    @Column(name = "first_name")
     private String firstName;
-
-    @Column(name = "last_name")
     private String lastName;
-
-    @Column(name = "gender")
-    private String gender;
-
-    @Column(name = "email", unique = true, nullable = false)
     private String email;
-
-    @Column(name = "birthday")
     private LocalDate birthday;
-
-    @Column(name = "country")
     private String country;
-
-    @Column(name = "address")
     private String address;
-
-    @Column(name = "city")
     private String city;
-
-    @Column(name = "zipcode")
     private String zipcode;
-
-    @Column(name = "phone", nullable = true, unique = true)
-    private String phone;
-
-    @Column(name = "password", nullable = false)
-    private String password;
-
-    @Column(name = "role")
     private String role;
-
-    @Column(name = "level")
-    private String level;
-
-    @Column(name = "has_newsletter")
     private boolean hasNewsletter;
-
-    @UpdateTimestamp
-    @Column(name = "last_seen_at")
     private LocalDateTime lastSeenAt;
-
-    @CreationTimestamp
-    @Column(name = "created_at")
     private LocalDateTime createdAt;
-
-    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+    private List<UserSegmentResponse> userSegments;
 
-    //@OneToMany(mappedBy = "user")
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UserSegment> userSegments;
+    public UserResponse getUserResponse(User user) {
+        UserResponse userResponse = new UserResponse();
+        userResponse.setId(user.getId());
 
-
-    public int getId() {
-        return id;
+        return userResponse;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstname(String firstName) {
         this.firstName = firstName;
     }
 
@@ -99,16 +53,8 @@ public class User {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastname(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getEmail() {
@@ -159,36 +105,12 @@ public class User {
         this.zipcode = zipcode;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getRole() {
         return role;
     }
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
     }
 
     public boolean isHasNewsletter() {
@@ -223,11 +145,12 @@ public class User {
         this.deletedAt = deletedAt;
     }
 
-    public List<UserSegment> getUserSegments() {
+    public List<UserSegmentResponse> getUserSegments() {
         return userSegments;
     }
 
-    public void setUserSegments(List<UserSegment> userSegments) {
+    public void setUserSegments(List<UserSegmentResponse> userSegments) {
         this.userSegments = userSegments;
     }
 }
+
