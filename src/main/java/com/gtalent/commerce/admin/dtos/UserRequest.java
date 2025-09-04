@@ -15,6 +15,7 @@ import java.time.LocalDate;
         private String address;
         private String city;
         private String zipcode;
+        private String password;
         private String role;
         private boolean hasNewsletter;
     }
